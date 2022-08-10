@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +16,61 @@ use App\Models\Listing;
 |
 */
 
-Route::get('/', function () {
-    return view('listings', [
-        'heading' => 'Latest Listing',
-        'listings' => Listing::all()
-    ]);
-});
+//common route
+//index: show all listing
+//show: show single listing
+//create: show form to create a listing
+//store: store a listing
+//edit: sho form to edit listing
+//update: edit a listing
+//destroy: delete a listing
 
 
-Route::get('/listings/{id}', function($id){
-    return view(
-        'listing', [
-            'listing' => Listing::find($id)
-        ]
-    );
-});
+
+
+//single listing
+
+// Route::get('/listings/{id}', function($id){
+//     return view(
+//         'listing', [
+//             'listing' => Listing::find($id)
+//         ]
+//     );
+//});
+
+//single listing
+
+// Route::get('/listings/{id}', function($id){
+//     $listing = Listing::find($id);
+//     if ($listing) {
+//        return view(
+//         'listing', [
+//             'listing' => $listing
+//         ]
+
+//        );
+//     } else {
+//        abort(404);
+//     }
+
+// });
+
+//listing all
+Route::get('/', [ListingController::class, 'index']);
+
+
+//create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+// stroring listings data
+Route::post('/listings', [ListingController::class, 'store']);
+
+Route::get('/login', [ListingController::class, 'login']);
+
+Route::get('/register', [ListingController::class, 'register']);
+
+Route::get('/manage', [ListingController::class, 'manage']);
+
+//single listing
+
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
