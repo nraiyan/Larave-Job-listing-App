@@ -69,4 +69,30 @@ public function store(Request $request){
 public function edit(Listing $listing){
     return view('listings.edit', ['listing' => $listing]);
 }
+
+//update listings data
+public function update(Request $request, Listing $listing){
+
+    $formFields = $request->validate([
+        'title' => 'required',
+        'company' => ['required'],
+        'location' => 'required',
+        'email' => ['required', 'email'],
+        'website' => 'required',
+        'tags' => 'required',
+        'description' => 'required'
+    ]);
+    if ($request->hasfile('logo')) {
+        $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+    }
+
+    //Creating a listing Data.
+    $listing->update($formFields);
+    return back()->with('message', 'Listing updated successfully');
+
+}
+
+
+
+
 }

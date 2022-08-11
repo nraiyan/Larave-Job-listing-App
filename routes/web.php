@@ -55,6 +55,9 @@ use App\Http\Controllers\ListingController;
 
 // });
 
+
+
+
 //listing all
 Route::get('/', [ListingController::class, 'index']);
 
@@ -66,8 +69,12 @@ Route::get('/listings/create', [ListingController::class, 'create']);
 Route::post('/listings', [ListingController::class, 'store']);
 
 //Show Edit Form
-Route::get('/listing/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
 
+//update listing
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+//login form
 Route::get('/login', [ListingController::class, 'login']);
 
 Route::get('/register', [ListingController::class, 'register']);
